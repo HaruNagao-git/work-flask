@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}LIST{% endblock %}
+
+<!-- ▼▼▼【リスト3.28】▼▼▼ -->
+{% block header %}<h1>（動的）商品一覧：画面</h1>{% endblock %}
+<!-- ▲▲▲【リスト3.28】▲▲▲ -->
+
+{% block content %}
+<table border="1">
+    <thead>
+        <tr><th>商品ID</th><th>商品名</th></tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><a href="{{ url_for('item_detail', id=item.id)}}">{{item.id}}</a></td>
+            <td>{{item.name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

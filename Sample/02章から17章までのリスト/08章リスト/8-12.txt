@@ -1,0 +1,1 @@
+data = data_dict["name"] + " : " + str(data_dict["age"])

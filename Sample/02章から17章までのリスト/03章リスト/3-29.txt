@@ -1,0 +1,5 @@
+# 条件分岐
+@app.route('/if_detail/<int:id>')
+def show_if_detail(id):
+    item_list = [Item(1,"ダンゴ"), Item(2,"にくまん"), Item(3,"ドラ焼き")]
+    return render_template('if_detail.html', show_id=id, items = item_list)

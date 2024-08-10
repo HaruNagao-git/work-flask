@@ -1,0 +1,22 @@
+# 関数outer
+def outer(func):
+    # 関数内関数inner
+    def inner():
+        print('===開始===')
+        func()
+        print('===終了===')
+    return inner
+
+# 関数a
+@outer
+def a():
+    print('Aです')
+
+# 関数b
+@outer
+def b():
+    print('Bです')
+
+# 関数の実行
+a()
+b()

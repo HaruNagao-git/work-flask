@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}TOP{% endblock %}
+
+{% block header %}<h1>トップ：画面</h1>{% endblock %}
+
+<!-- ▼▼▼【リスト3.11】▼▼▼ -->
+{% block content %}
+    <a href="{{ url_for('item_list')}}">商品一覧画面へ</a>
+{% endblock %}
+<!-- ▲▲▲【リスト3.11】▲▲▲ -->
+
+{% block footer %}{% endblock %}

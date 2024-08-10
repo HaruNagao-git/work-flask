@@ -1,0 +1,9 @@
+# モジュールのインポート
+from werkzeug.exceptions import NotFound
+
+# エラーハンドリング
+@app.errorhandler(NotFound)
+def show_404_page(error):
+    msg = error.description
+    print('エラー内容：',msg)
+    return render_template('errors/404.html') , 404

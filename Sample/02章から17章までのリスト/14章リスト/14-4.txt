@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メモアプリ</title>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}">ログアウト</a>
+        <!-- ▼▼▼ リスト14.4の追加 ▼▼▼ -->
+        <a href="{{ url_for('wiki.search') }}">Wikipediaの検索へ</a>
+        <!-- ▲▲▲ リスト14.4の追加 ▲▲▲ -->
+        {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>
