@@ -11,7 +11,7 @@ app.config.from_object("config.Config")  # 設定ファイル読み込み
 db.init_app(app)  # dbとFlaskとの紐付け
 migrate = Migrate(app, db)  # マイグレーションとの紐付け(Flaskとdb)
 
-from views import *
+from views import *  # viewsから全ての関数をインポート(コードの位置大事！！！)
 
 # ==================================================
 # 実行
