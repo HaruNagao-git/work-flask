@@ -1,13 +1,75 @@
 from app import app
 from flask import flash, redirect, render_template, request, url_for
-from forms import MemoForm
-from models import Memo, db
-from werkzeug.exceptions import NotFound
+from flask_login import login_user, logout_user
+from forms import LoginForm, MemoForm, SignUpForm
+from models import Memo, User, db
 
 
 # ==================================================
 # ルーティング
 # ==================================================
+# ログイン(Form使用)
+@app.route("/", methods=["GET", "POST"])
+def login():
+    # Formインスタンス生成
+    form = LoginForm()
+    if form.validate_on_submit():
+        # データ入力取得
+        username = form.username.data
+        password = form.password.data
+        # 対象ユーザ取得
+        user = User.query.filter_by(username=username).first()
+        # 認証判定
+        if user is not None and user.check_password(password):
+            # 成功
+            # 引数として渡されたuserオブジェクトを使用して、ユーザをログイン状態にする
+            login_user(user)
+            # 画面遷移
+            return redirect(url_for("index"))
+        # 失敗
+        flash("認証不備です")
+    # GET
+    # 画面遷移
+    return render_template("login_form.html", form=form)
+
+
+# ログアウト
+@app.route("/logout")
+def logout():
+    # 現在ログインしているユーザをログアウトする
+    logout_user()
+    # フラッシュメッセージ
+    flash("ログアウトしました")
+    # 画面遷移
+    return redirect(url_for("login"))
+
+
+# サインアップ
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    # Formインスタンス生成
+    form = SignUpForm()
+    if form.validate_on_submit():
+        # データ入力取得
+        username = form.username.data
+        password = form.password.data
+        # モデル生成
+        user = User(username=username)
+        # パスワードハッシュ化
+        user.set_password(password)
+        # 登録処理
+        db.session.add(user)
+        db.session.commit()
+        # フラッシュメッセージ
+        flash("登録しました")
+        # 画面遷移
+        return redirect(url_for("login"))
+    # GET
+    # 画面遷移
+    return render_template("register_form.html", form=form)
+
+
+# 一覧
 @app.route("/memo/")
 def index():
     # メモ全件取得
@@ -71,6 +133,9 @@ def delete(memo_id):
     flash("削除しました")
     # 画面遷移
     return redirect(url_for("index"))
+
+
+from werkzeug.exceptions import NotFound
 
 
 # エラーハンドラー
