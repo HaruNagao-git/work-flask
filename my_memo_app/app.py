@@ -16,6 +16,8 @@ migrate = Migrate(app, db)  # マイグレーションとの紐付け(Flaskとdb
 login_manager = LoginManager()
 # LoginManagerとFlaskとの紐付け
 login_manager.init_app(app)
+# ログインが必要なページにアクセスしようとしたときに表示されるメッセージを変更
+login_manager.login_message = "認証していません：ログインしてください"
 # 未認証のユーザがアクセスしようとした際にリダイレクトされる関数名を設定する
 login_manager.login_view = "login"
 
