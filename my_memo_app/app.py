@@ -1,6 +1,8 @@
+from auth.views import auth_bp
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from memo.views import memo_bp
 from models import User, db
 
 # ==================================================
@@ -18,8 +20,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 # ログインが必要なページにアクセスしようとしたときに表示されるメッセージを変更
 login_manager.login_message = "認証していません：ログインしてください"
-# 未認証のユーザがアクセスしようとした際にリダイレクトされる関数名を設定する
-login_manager.login_view = "login"
+# 未認証のユーザがアクセスしようとした際にリダイレクトされる関数名を設定する(ブループリント対応)
+login_manager.login_view = "auth.login"
+# blueprintをアプリケーションに登録
+app.register_blueprint(auth_bp)
+app.register_blueprint(memo_bp)
 
 
 @login_manager.user_loader

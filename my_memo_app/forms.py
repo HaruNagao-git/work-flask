@@ -38,10 +38,10 @@ class MemoForm(FlaskForm):
 # ログイン用入力クラス
 class LoginForm(FlaskForm):
     # ユーザ名
-    username = StringField("ユーザ名", validators=[DataRequired("ユーザ名は必須入力です")])
+    username = StringField("ユーザ名：", validators=[DataRequired("ユーザ名は必須入力です")])
     # パスワード
     password = PasswordField(
-        "パスワード", validators=[Length(4, 10, "パスワードの長さは4文字以上10文字以内です")]
+        "パスワード：", validators=[Length(4, 10, "パスワードの長さは4文字以上10文字以内です")]
     )
     # ボタン
     submit = SubmitField("ログイン")
