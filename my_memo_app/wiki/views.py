@@ -23,12 +23,13 @@ def search():
         # データ入力取得
         keyword = form.keyword.data
         page = wiki_ja.page(keyword)
+        disp_char = 400
         # 検索結果
         if page.exists():
             return render_template(
                 "wiki/wiki_search_result.html",
                 keyword=keyword,
-                summary=page.summary[:200],
+                summary=page.summary[:disp_char],
                 url=page.fullurl,
             )
         else:
